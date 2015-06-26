@@ -13,7 +13,7 @@ object Main extends App {
   optimize
 
   def optimize {
-    val squareSize = 3
+    val squareSize = 5
     val size = squareSize * squareSize
     val Lines = 0 until size
     val Columns = 0 until size
