@@ -58,7 +58,7 @@ object Main extends App {
     def format(sol: IndexedSeq[IndexedSeq[IndexedSeq[Int]]]) = {
       val representation = (1 to 9) ++ ('A' to 'Z')
       val rows = sol.map(_.grouped(squareSize).toSeq.map(_.map(_.map(representation).mkString(",")).mkString(" ", " ", " "))).map(Row(_: _*))
-      def withSep(sections: Seq[Seq[Row]]): List[AbstractRow] = sections match {
+      def withSep(sections: List[Seq[Row]]): List[AbstractRow] = sections match {
         case section :: Nil  ⇒ section.toList
         case section :: tail ⇒ section.toList ::: Separator(Normal, Middle) :: withSep(tail)
       }
