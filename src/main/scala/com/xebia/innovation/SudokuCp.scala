@@ -31,8 +31,8 @@ object SudokuCp extends CPModel with App {
   ) add(allDifferent(Columns.map(c ⇒ x(l)(c))))
 
   for (
-    l ← Columns
-  ) add(allDifferent(Lines.map(c ⇒ x(l)(c))))
+    c ← Columns
+  ) add(allDifferent(Lines.map(l ⇒ x(l)(c))))
 
   for (
     bl <- Blocks;
