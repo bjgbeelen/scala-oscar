@@ -42,9 +42,22 @@ object Main extends App {
     /* One number should be assigned to every (line,column) positiion */
     for (l ← Lines; c ← Columns) add(sum(Numbers)(n ⇒ x(n)(l)(c)).==(1))
 
+    // first row in order
+    for (
+      n ← Numbers
+    ) add(x(n)(n)(0) == 1)
+
+    // make sure every number is only once on the diagonal
+    for (
+      n ← Numbers
+    ) {
+      add(sum(0 until size)(i ⇒ x(n)(i)(i)) == 1)
+      add(sum(0 until size)(i ⇒ x(n)(i)((size - 1) - i)) == 1)
+    }
+
     start()
 
-    println(status, objectiveValue.get)
+    //println(status, objectiveValue.get)
 
     val sol = Lines.map { l ⇒ Columns.map { c ⇒ Numbers.filter(x(_)(c)(l).value.fold(false)(_ == 1.0)) } }
 
