@@ -13,7 +13,7 @@ object Main extends App {
   optimize
 
   def optimize {
-    val squareSize = 3
+    val squareSize = 5
     val size = squareSize * squareSize
     val Lines = 0 until size
     val Columns = 0 until size
@@ -37,23 +37,17 @@ object Main extends App {
       /* One number should be assigned to every (line,column) positiion */
       for (s ← List.range(0, size, squareSize); t ← List.range(0, size, squareSize))
         add(sum((s until s + squareSize), (t until t + squareSize))((i, j) ⇒ x(n)(i)(j)).==(1))
+
+      // first row in order
+      add(x(n)(n)(0).==(1))
+
+      // make sure every number is only once on the diagonal
+      add(sum(0 until size)(i ⇒ x(n)(i)(i)).==(1))
+      add(sum(0 until size)(i ⇒ x(n)(i)((size - 1) - i)).==(1))
     }
 
     /* One number should be assigned to every (line,column) positiion */
     for (l ← Lines; c ← Columns) add(sum(Numbers)(n ⇒ x(n)(l)(c)).==(1))
-
-    // first row in order
-    for (
-      n ← Numbers
-    ) add(x(n)(n)(0).==(1))
-
-    // make sure every number is only once on the diagonal
-    for (
-      n ← Numbers
-    ) {
-      add(sum(0 until size)(i ⇒ x(n)(i)(i)).==(1))
-      add(sum(0 until size)(i ⇒ x(n)(i)((size - 1) - i)).==(1))
-    }
 
     start()
 
