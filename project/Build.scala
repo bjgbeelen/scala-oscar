@@ -49,6 +49,7 @@ object Build extends Build {
         logback,
         logstashLogbackEncoder,
         oscarLinprog,
+        oscarCp,
         jodaTime      
         ) ++
       test(
