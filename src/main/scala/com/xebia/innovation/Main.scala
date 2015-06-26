@@ -31,39 +31,26 @@ object Main extends App {
     for (
       n ← Numbers;
       l ← Lines
-    ) add(sum(Columns)(c ⇒ x(n)(l)(c)) == 1)
+    ) add(sum(Columns)(c ⇒ x(n)(l)(c)) <= 1)
 
     /* Every number, in every column should be chosen only once */
     for (
       n ← Numbers;
       c ← Columns
-    ) add(sum(Lines)(l ⇒ x(n)(l)(c)) == 1)
+    ) add(sum(Lines)(l ⇒ x(n)(l)(c)) <= 1)
 
     /* One number should be assigned to every (line,column) positiion */
     for (
       l ← Lines;
       c ← Columns
-    ) add(sum(Numbers)(n ⇒ x(n)(l)(c)) == 1)
+    ) add(sum(Numbers)(n ⇒ x(n)(l)(c)) <= 1)
 
-    // /* at most one queen can be placed in each column */
-    // for (c ← Columns)
-    //   add(sum(Lines)(l ⇒ x(l)(c)) <= 1)
-
-    // /* at most one queen can be placed in each "/"-diagonal  upper half*/
-    // for (i ← 1 until n)
-    //   add(sum(0 to i)((j) ⇒ x(i - j)(j)) <= 1)
-
-    //  at most one queen can be placed in each "/"-diagonal  lower half
-    // for (i ← 1 until n)
-    //   add(sum(i until n)((j) ⇒ x(j)(n - 1 - j + i)) <= 1)
-
-    // /* at most one queen can be placed in each "/"-diagonal  upper half*/
-    // for (i ← 0 until n)
-    //   add(sum(0 until n - i)((j) ⇒ x(j)(j + i)) <= 1)
-
-    // /* at most one queen can be placed in each "/"-diagonal  lower half*/
-    // for (i ← 1 until n)
-    //   add(sum(0 until n - i)((j) ⇒ x(j + i)(j)) <= 1)
+    /* One number should be assigned to every (line,column) positiion */
+    for (
+      n ← Numbers;
+      s ← List.range(0, n, squareSize);
+      t ← List.range(0, n, squareSize)
+    ) add(sum((s until s + squareSize), (t until t + squareSize))((i, j) ⇒ x(n)(i)(j)) <= 1)
 
     start()
 
