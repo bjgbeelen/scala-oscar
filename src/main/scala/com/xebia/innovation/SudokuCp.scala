@@ -1,7 +1,7 @@
 package com.xebia.innovation
 
 import oscar.cp.core._
-import oscar.cp.modeling.{add, start, _}
+import oscar.cp.modeling.{ add, start, _ }
 
 object SudokuCp extends CPModel with App {
 
@@ -30,14 +30,16 @@ object SudokuCp extends CPModel with App {
   ) add(allDifferent(Lines.map(c ⇒ x(l)(c))))
 
   for (
-    bl <- Blocks;
-    bc <- Blocks
+    bl ← Blocks;
+    bc ← Blocks
   ) add(allDifferent(
-    for (bl1 <- Blocks;
-         bc1 <- Blocks) yield x(bl * Block + bl1)(bc * Block + bc1)
+    for (
+      bl1 ← Blocks;
+      bc1 ← Blocks
+    ) yield x(bl * Block + bl1)(bc * Block + bc1)
   ))
 
-  search(binaryFirstFail(x.flatMap(a => a).toSeq))
+  search(binaryFirstFail(x.flatMap(a ⇒ a).toSeq))
 
   val stats = start()
 

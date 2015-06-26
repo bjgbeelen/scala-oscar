@@ -9,7 +9,6 @@ object Build extends Build {
   import Formatting._
   import Packager._
   import TestCoverage._
-  import BlazeArtifactory._
 
   val targetScalaVersion = "2.11.6"
 
