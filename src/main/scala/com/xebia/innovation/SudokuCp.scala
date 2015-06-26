@@ -15,6 +15,20 @@ object SudokuCp extends CPModel with App {
   val Columns = 0 until Size
   val Numbers = 0 until Size
 
+  onSolution {
+    println("------ Solution ------")
+    for (
+      i ← 0 until Size
+    ) {
+      for (j ← 0 until Size) {
+        print(Integer.toHexString(x(i)(j).value).toUpperCase + " ")
+        if (j % Block == Block - 1) print(" ")
+      }
+      println()
+      if (i % Block == Block - 1) println()
+    }
+  }
+
   val x = Array.tabulate(Size, Size)((l, c) ⇒ CPIntVar(Numbers, "x" + (l, c)))
 
   // Each line should have distinct numbers
@@ -43,19 +57,5 @@ object SudokuCp extends CPModel with App {
   val stats = start()
 
   println(stats)
-
-  onSolution {
-    println("------ Solution ------")
-    for (
-      i ← 0 until Size
-    ) {
-      for (j ← 0 until Size) {
-        print(Integer.toHexString(x(i)(j).value).toUpperCase + " ")
-        if (j % Block == Block - 1) print(" ")
-      }
-      println()
-      if (i % Block == Block - 1) println()
-    }
-  }
 }
 
