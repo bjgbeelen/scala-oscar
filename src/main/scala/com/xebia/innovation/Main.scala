@@ -15,15 +15,15 @@ object Main extends App {
 
   def optimize = {
     val squareSize = 3
-    val n = squareSize * squareSize
-    val Lines = 0 until n
-    val Columns = 0 until n
-    val Numbers = 0 until n
+    val size = squareSize * squareSize
+    val Lines = 0 until size
+    val Columns = 0 until size
+    val Numbers = 0 until size
     implicit val mip = MIPSolver(LPSolverLib.glpk)
 
     mip.name = "Hexadecimal Sudoku"
 
-    val x = Array.tabulate(n, n, n)((number, l, c) ⇒ MIPIntVar("x" + (number, l, c), 0 to 1))
+    val x = Array.tabulate(size, size, size)((number, l, c) ⇒ MIPIntVar("x" + (number, l, c), 0 to 1))
 
     maximize(sum(Lines, Columns, Numbers) { (number, l, c) ⇒ x(number)(l)(c) })
 
@@ -48,8 +48,8 @@ object Main extends App {
     /* One number should be assigned to every (line,column) positiion */
     for (
       n ← Numbers;
-      s ← List.range(0, n, squareSize);
-      t ← List.range(0, n, squareSize)
+      s ← List.range(0, size, squareSize);
+      t ← List.range(0, size, squareSize)
     ) add(sum((s until s + squareSize), (t until t + squareSize))((i, j) ⇒ x(n)(i)(j)) <= 1)
 
     start()
