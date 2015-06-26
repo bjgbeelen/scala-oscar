@@ -30,6 +30,7 @@ object Dependencies {
   val logstashLogbackEncoder   = "net.logstash.logback"    %  "logstash-logback-encoder"      % "4.2"
   val scalatest                = "org.scalatest"           %% "scalatest"                     % "2.2.4"
   val oscarLinprog             = "oscar"                   %% "oscar-linprog"                 % "1.1.0"
+  val oscarCp             = "oscar"                   %% "oscar-cp"                 % "1.1.0"
   val jodaTime                 = "com.github.nscala-time"  %% "nscala-time"                   % "2.0.0"
   
   def compile   (deps: ModuleID*): Seq[ModuleID] = deps map (_ % "compile")
