@@ -1,6 +1,10 @@
 package com.xebia
 package inoovation
 
+import com.xebia.innovation.utils.Style._
+import com.xebia.innovation.utils.Table2D.{Separator, AbstractRow, Row}
+import com.xebia.innovation.utils.YPosition._
+import com.xebia.innovation.utils._
 import oscar.linprog.modeling._
 import oscar.linprog._
 import oscar.algebra._
@@ -65,12 +69,17 @@ object Main extends App {
 
     println(status, objectiveValue.get)
 
-    for (
-      i ← 0 until n;
-      j ← 0 until n;
-      k ← 0 until n;
-      if x(i)(j)(k).value != Some(0.0)
-    ) println(x(i)(j)(k).name + " = " + x(i)(j)(k).value)
+    val sol = Lines.map {l => Columns.map { c => Numbers.filter(x(_)(c)(l).value.fold(false)(_ == 1.0)) } }
+
+    def format(sol: IndexedSeq[IndexedSeq[IndexedSeq[Int]]]) = {
+      val rows = sol.map(_.grouped(squareSize).toSeq.map(_.map(_.mkString(",")).mkString(" "," "," "))).map(Row(_: _*))
+      def withSep(sections: Seq[Seq[Row]]): List[AbstractRow] = sections match {
+        case section :: Nil  => section.toList
+        case section :: tail => section.toList ::: Separator(Normal, Middle) :: withSep(tail)
+      }
+      Table2D.formatTable(Separator(Bold, Top) :: withSep(rows.grouped(squareSize).toList) ::: Separator(Bold, Bottom) :: Nil)
+    }
+    println(format(sol))
 
     release()
   }
