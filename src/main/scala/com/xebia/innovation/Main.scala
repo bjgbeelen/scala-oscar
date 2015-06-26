@@ -45,14 +45,14 @@ object Main extends App {
     // first row in order
     for (
       n ← Numbers
-    ) add(x(n)(n)(0) == 1)
+    ) add(x(n)(n)(0).==(1))
 
     // make sure every number is only once on the diagonal
     for (
       n ← Numbers
     ) {
-      add(sum(0 until size)(i ⇒ x(n)(i)(i)) == 1)
-      add(sum(0 until size)(i ⇒ x(n)(i)((size - 1) - i)) == 1)
+      add(sum(0 until size)(i ⇒ x(n)(i)(i)).==(1))
+      add(sum(0 until size)(i ⇒ x(n)(i)((size - 1) - i)).==(1))
     }
 
     start()
