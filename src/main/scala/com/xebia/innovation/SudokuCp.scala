@@ -15,10 +15,15 @@ object SudokuCp extends CPModel with App {
   val x = Array.tabulate(Size, Size)((l, c) ⇒ CPIntVar(Numbers, "x" + (l, c)))
 
   onSolution {
+    println("------ Solution ------")
     for (
-      i ← 0 until Size;
-      j ← 0 until Size
-    ) println(x(i)(j).name + " = " + x(i)(j).value)
+      i ← 0 until Size
+    ) {
+      for (j <- 0 until Size)
+        print(x(i)(j).value + " ")
+      println()
+    }
+    println()
   }
 
   for (
@@ -26,8 +31,8 @@ object SudokuCp extends CPModel with App {
   ) add(allDifferent(Columns.map(c ⇒ x(l)(c))))
 
   for (
-    l ← Columns
-  ) add(allDifferent(Lines.map(c ⇒ x(l)(c))))
+    c ← Columns
+  ) add(allDifferent(Lines.map(l ⇒ x(l)(c))))
 
   for (
     bl ← Blocks;
