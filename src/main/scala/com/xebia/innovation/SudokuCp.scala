@@ -19,7 +19,7 @@ object SudokuCp extends CPModel with App {
     for (
       i ← 0 until Size
     ) {
-      for (j <- 0 until Size)
+      for (j ← 0 until Size)
         print(x(i)(j).value + " ")
       println()
     }
