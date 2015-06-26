@@ -3,14 +3,17 @@ package com.xebia.innovation
 import oscar.cp.core._
 import oscar.cp.modeling.{ add, start, _ }
 
+/**
+ * Constraint-based solver
+ */
 object SudokuCp extends CPModel with App {
 
-  val Block = 3
+  val Block = 4
   val Size = Block * Block
   val Lines = 0 until Size
   val Blocks = 0 until Block
   val Columns = 0 until Size
-  val Numbers = 1 to Size
+  val Numbers = 0 until Size
 
   val x = Array.tabulate(Size, Size)((l, c) ⇒ CPIntVar(Numbers, "x" + (l, c)))
 
@@ -19,11 +22,13 @@ object SudokuCp extends CPModel with App {
     for (
       i ← 0 until Size
     ) {
-      for (j <- 0 until Size)
-        print(x(i)(j).value + " ")
+      for (j <- 0 until Size) {
+        print(Integer.toHexString(x(i)(j).value).toUpperCase + " ")
+        if (j % Block == Block - 1) print (" ")
+      }
       println()
+      if (i % Block == Block - 1) println()
     }
-    println()
   }
 
   for (
@@ -44,7 +49,7 @@ object SudokuCp extends CPModel with App {
     ) yield x(bl * Block + bl1)(bc * Block + bc1)
   ))
 
-  search(binaryFirstFail(x.flatMap(a ⇒ a).toSeq))
+  search(binaryFirstFail(x.flatten.toSeq))
 
   val stats = start()
 
