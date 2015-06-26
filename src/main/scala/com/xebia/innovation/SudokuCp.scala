@@ -22,9 +22,9 @@ object SudokuCp extends CPModel with App {
     for (
       i ← 0 until Size
     ) {
-      for (j <- 0 until Size) {
+      for (j ← 0 until Size) {
         print(Integer.toHexString(x(i)(j).value).toUpperCase + " ")
-        if (j % Block == Block - 1) print (" ")
+        if (j % Block == Block - 1) print(" ")
       }
       println()
       if (i % Block == Block - 1) println()
